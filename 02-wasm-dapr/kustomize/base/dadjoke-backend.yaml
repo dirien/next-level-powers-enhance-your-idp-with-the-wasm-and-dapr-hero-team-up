@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dadjoke-backend
+spec:
+  selector:
+    matchLabels:
+      app: dadjoke-backend
+  template:
+    metadata:
+      labels:
+        app: dadjoke-backend
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "dadjoke-backend"
+        dapr.io/app-port: "3000"
+    spec:
+      containers:
+      - name: dadjoke-backend
+        image: backend
+        ports:
+        - containerPort: 3000
+        env:
+        - name: TOPIC_NAME
+          value: dad-jokes
+        - name: PUBSUB_NAME
+          value: pubsub
+        - name: TOPIC_RESULT_NAME
+          value: dad-jokes-result
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: dadjoke-secrets
+              key: api-key
+---
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterSecretStore
+metadata:
+  name: dadjoke-secret-store
+spec:
+  provider:
+    pulumi:
+      organization: dirien
+      environment: dadjoke
+      project: next-level-powers-enhance-your-idp-with-the-wasm-and-dapr-hero-team-up
+      accessToken:
+        secretRef:
+          name: pulumi-access-token
+          key: PULUMI_ACCESS_TOKEN
+          namespace: default
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: dadjoke-secrets
+spec:
+  refreshInterval: 20s
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: dadjoke-secret-store
+  dataFrom:
+  - extract:
+      conversionStrategy: Default
+      decodingStrategy: None
+      key: openai
+      metadataPolicy: None
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: dadjoke-backend-scaledobject
+spec:
+  scaleTargetRef:
+    name: dadjoke-backend
+  pollingInterval: 30
+  maxReplicaCount: 5
+  triggers:
+  - type: kafka
+    metadata:
+      bootstrapServers: dadjokes-kafka-cluster-kafka-bootstrap.test.svc.cluster.local:9092
+      consumerGroup: dadjoke-backend
+      topic: dad-jokes
+      lagThreshold: "5"

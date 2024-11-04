@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: backstage-app
+  namespace: argocd
+spec:
+  project: infra
+  sources:
+  - repoURL: https://cloudnative-pg.github.io/charts
+    targetRevision: 0.1.0
+    chart: cluster
+    helm:
+      valuesObject:
+        type: postgresql
+        mode: standalone
+        version:
+          postgresql: "16"
+        cluster:
+          instances: 1
+          initdb:
+            owner: backstage
+            postInitApplicationSQL:
+            - ALTER ROLE backstage CREATEDB
+            secret:
+              name: cnpg-cluster-secret
+        backups:
+          enabled: false
+  - repoURL: https://github.com/dirien/next-level-powers-enhance-your-idp-with-the-wasm-and-dapr-hero-team-up.git
+    targetRevision: HEAD
+    path: gitops/cluster-addons/backstage/manifest
+  - repoURL: https://github.com/my-silly-organisation/backstage.git
+    targetRevision: main
+    path: backstage-umbrella
+    helm:
+      valueFiles:
+      - $values/gitops/cluster-addons/backstage/helm-values.yaml
+  - repoURL: https://github.com/dirien/next-level-powers-enhance-your-idp-with-the-wasm-and-dapr-hero-team-up.git
+    targetRevision: HEAD
+    ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: backstage
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: true
+    syncOptions:
+    - CreateNamespace=true
+  ignoreDifferences:
+  - group: postgresql.cnpg.io
+    kind: Cluster
+    namespace: backstage
+    jqPathExpressions:
+    - ".spec.postgresql.pg_hba"
+    - ".spec.postgresql.pg_ident"

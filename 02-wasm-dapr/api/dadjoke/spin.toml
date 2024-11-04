@@ -1,0 +1,33 @@
+spin_manifest_version = 2
+
+[application]
+name = "dadjokes-generator"
+version = "0.1.0"
+authors = ["Engin Diri <engin.diri@ediri.de>"]
+description = ""
+
+[[trigger.http]]
+route = "/..."
+component = "dadjokes-generator"
+
+[component.dadjokes-generator]
+source = "main.wasm"
+allowed_outbound_hosts = [
+    "http://*:*",
+    "https://*:*",
+    "http://self"
+]
+
+[component.dadjokes-generator.build]
+command = "tinygo build -target=wasi -gc=leaking -no-debug -o main.wasm main.go"
+watch = ["**/*.go", "go.mod"]
+
+[variables]
+pubsub_name = { required = true }
+topic_name = { required = true }
+dapr_http_port = { required = true }
+
+[component.dadjokes-generator.variables]
+pubsub_name = "{{ pubsub_name }}"
+topic_name = "{{ topic_name }}"
+dapr_http_port = "{{ dapr_http_port }}"

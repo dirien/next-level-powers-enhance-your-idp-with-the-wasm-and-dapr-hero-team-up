@@ -1,0 +1,41 @@
+apiVersion: core.spinoperator.dev/v1alpha1
+kind: SpinApp
+metadata:
+  name: dadjokes-generator
+spec:
+  image: dadjokes-generator-api
+  executor: containerd-shim-spin
+  replicas: 1
+  checks: {}
+  variables:
+  - name: PUBSUB_NAME
+    value: pubsub
+  - name: TOPIC_NAME
+    value: dad-jokes
+  - name: DAPR_HTTP_PORT
+    value: "3500"
+  podAnnotations:
+    dapr.io/enabled: "true"
+    dapr.io/app-id: "dadjokes-generator"
+    dapr.io/app-port: "80"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dadjokes-generator-ingress
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: dadjoke-api-wasmcon.ediri.online
+    external-dns.alpha.kubernetes.io/ttl: "60"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: dadjoke-api-wasmcon.ediri.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dadjokes-generator
+            port:
+              number: 80

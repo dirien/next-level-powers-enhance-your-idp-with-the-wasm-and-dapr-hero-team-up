@@ -1,0 +1,37 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- base/kafka.yaml
+- base/dapr.yaml
+- base/frontend.yaml
+- base/dadjoke-api.yaml
+- base/dadjoke-backend.yaml
+- base/spin.yaml
+
+namespace: dadjokes
+
+configurations:
+- config/spinapp-transformer.yaml
+
+images:
+- name: frontend
+  newName: dirien/wasmcon-dadjoke-fe
+  newTag: latest@sha256:4a55d9aa379327fe85371648cc96ac4933fac8f028b63e17d8c4e35adbbbbe89
+- name: dadjokes-generator-api
+  newName: dirien/dadjokes-generator
+  newTag: latest@sha256:dcd9432529906ece6c12ed29e4c456747ccecceda4c5cc0383d6fd037af362f6
+- name: backend
+  newName: dirien/wasmcon-dadjoke-backend
+  newTag: latest@sha256:02b0c2ed73ca69b5fb88b610053152a2cef8ff1fca552d55c437dd3296a02340
+
+patchesJson6902:
+- target:
+    group: keda.sh
+    version: v1alpha1
+    kind: ScaledObject
+    name: dadjoke-backend-scaledobject
+  patch: |-
+    - op: replace
+      path: /spec/triggers/0/metadata/bootstrapServers
+      value: dadjokes-kafka-cluster-kafka-bootstrap.dadjokes.svc.cluster.local:9092

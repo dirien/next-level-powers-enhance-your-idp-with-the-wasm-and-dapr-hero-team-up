@@ -1,0 +1,40 @@
+configs:
+  secret:
+    argocdServerAdminPassword: "$2a$10$RjjTokiJSaTQt8jAMOUTK.O0VIZ3.0AEs3/JxtaFKGZir93yFPEOG"
+    argocdServerAdminPasswordMtime: "2023-11-13T09:23:16Z"
+  params:
+    "server.insecure": true
+  cm:
+    application.resourceTrackingMethod: annotation
+    accounts.admin: "apiKey, login"
+
+  repositories:
+    pulumi-oci:
+      url: ghcr.io/pulumi/helm-charts
+      type: helm
+      name: pulumi-kubernetes-operator
+      enableOCI: "true"
+
+global:
+  additionalLabels:
+    backstage.io/kubernetes-id: gitops-cluster
+  podLabels:
+    backstage.io/kubernetes-id: gitops-cluster
+
+
+server:
+  ingress:
+    enabled: true
+    hostname: argocd-wasmcon.ediri.online
+    ingressClassName: nginx
+    annotations:
+      "external-dns.alpha.kubernetes.io/hostname": argocd-wasmcon.ediri.online
+      "external-dns.alpha.kubernetes.io/ttl": "60"
+
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 1000m
+      memory: 1024Mi

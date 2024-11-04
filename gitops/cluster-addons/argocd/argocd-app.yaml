@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-app
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: infra
+  sources:
+  - repoURL: 'https://argoproj.github.io/argo-helm'
+    targetRevision: 7.7.0
+    chart: argo-cd
+    helm:
+      valueFiles:
+      - $values/gitops/cluster-addons/argocd/argocd-values.yaml
+  - repoURL: https://github.com/dirien/next-level-powers-enhance-your-idp-with-the-wasm-and-dapr-hero-team-up.git
+    targetRevision: main
+    ref: values
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - ServerSideApply=true

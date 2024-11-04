@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dadjoke-frontend-deployment
+spec:
+  selector:
+    matchLabels:
+      app: dadjoke-frontend
+  template:
+    metadata:
+      labels:
+        app: dadjoke-frontend
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "dadjoke-frontend"
+        dapr.io/app-port: "6002"
+    spec:
+      containers:
+      - name: dadjoke-frontend
+        image: frontend
+        ports:
+        - containerPort: 3000
+        env:
+        - name: TOPIC_NAME
+          value: dad-jokes-result
+        - name: PUBSUB_NAME
+          value: pubsub
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dadjoke-frontend-service
+spec:
+  selector:
+    app: dadjoke-frontend
+  ports:
+  - protocol: TCP
+    port: 80        # Service port
+    targetPort: 3000  # Container port
+  type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: dadjoke-wasmcon.ediri.online
+    external-dns.alpha.kubernetes.io/ttl: "60"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: dadjoke-wasmcon.ediri.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dadjoke-frontend-service
+            port:
+              number: 80

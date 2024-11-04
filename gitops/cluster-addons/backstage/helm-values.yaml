@@ -1,0 +1,32 @@
+backstage:
+  serviceAccount:
+    create: true
+    name: backstage
+  backstage:
+    image:
+      repository: ghcr.io/my-silly-organisation/backstage
+      tag: 1.31.2
+    extraEnvVarsSecrets:
+      - backstage-secrets
+    extraEnvVars:
+      - name: NODE_ENV
+        value: development
+      - name: ARGOCD_URL
+        value: "http://argocd-wasmcon.ediri.online/api/v1/"
+      - name: BASE_URL
+        value: backstage-wasmcon.ediri.online
+      - name: CATALOG_LOCATION
+        value: "https://github.com/dirien/backstage-demo/blob/main/catalog/catalog-all.yaml"
+      - name: POSTGRES_HOST
+        value: "backstage-app-cluster-rw"
+      - name: POSTGRES_PORT
+        value: "5432"
+      - name: NODE_TLS_REJECT_UNAUTHORIZED
+        value: "0"
+  ingress:
+    enabled: true
+    annotations:
+      "external-dns.alpha.kubernetes.io/hostname": backstage-wasmcon.ediri.online
+      "external-dns.alpha.kubernetes.io/ttl": "60"
+    className: nginx
+    host: backstage-wasmcon.ediri.online

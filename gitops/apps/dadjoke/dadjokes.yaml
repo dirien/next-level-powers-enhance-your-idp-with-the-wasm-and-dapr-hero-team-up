@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dadjokes
+  namespace: argocd
+spec:
+  destination:
+    namespace: dadjokes
+    server: https://kubernetes.default.svc
+  source:
+    path: 02-wasm-dapr/kustomize
+    repoURL: https://github.com/dirien/next-level-powers-enhance-your-idp-with-the-wasm-and-dapr-hero-team-up.git
+    targetRevision: HEAD
+    kustomize:
+      namespace: dadjokes
+  project: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - ServerSideApply=true
+    - CreateNamespace=true

@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kwasm-operator
+  namespace: argocd
+spec:
+  destination:
+    namespace: kwasm
+    server: https://kubernetes.default.svc
+  project: infra
+  source:
+    repoURL: http://kwasm.sh/kwasm-operator/
+    targetRevision: 0.2.3
+    chart: kwasm-operator
+    helm:
+      valuesObject:
+        kwasmOperator:
+          installerImage: ghcr.io/spinkube/containerd-shim-spin/node-installer:v0.16.0
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - ServerSideApply=true
+    - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: spin-operator
+  namespace: argocd
+spec:
+  destination:
+    namespace: spin-operator
+    server: https://kubernetes.default.svc
+  project: infra
+  sources:
+  - repoURL: ghcr.io/spinkube/charts
+    targetRevision: 0.3.0
+    chart: spin-operator
+  - path: gitops/cluster-addons/spinkube/manifests
+    targetRevision: main
+    directory:
+      recurse: true
+    repoURL: https://github.com/dirien/next-level-powers-enhance-your-idp-with-the-wasm-and-dapr-hero-team-up.git
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - ServerSideApply=true
+    - CreateNamespace=true

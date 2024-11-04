@@ -1,0 +1,11 @@
+domainFilters:
+- "ediri.online"
+sources:
+- ingress
+provider: digitalocean
+env:
+- name: DO_TOKEN
+  valueFrom:
+    secretKeyRef:
+      name: external-dns-provider-token
+      key: do-token
