@@ -73,12 +73,12 @@ spec:
   scaleTargetRef:
     name: dadjoke-backend
   pollingInterval: 10
-  maxReplicaCount: 5
+  maxReplicaCount: ${{values.maxBackedReplicaCount}}
   minReplicaCount: 0
   triggers:
   - type: kafka
     metadata:
-      bootstrapServers: dadjokes-kafka-cluster-kafka-bootstrap.test.svc.cluster.local:9092
+      bootstrapServers: ${{values.kafkaClusterName}}-kafka-bootstrap.test.svc.cluster.local:9092
       consumerGroup: dadjoke-backend
       scaleToZeroOnInvalidOffset: "true"
       topic: dad-jokes

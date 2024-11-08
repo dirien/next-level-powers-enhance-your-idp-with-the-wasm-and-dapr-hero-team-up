@@ -3,7 +3,7 @@ kind: KafkaNodePool
 metadata:
   name: dadjokes-kafka-node-pool
   labels:
-    strimzi.io/cluster: dadjokes-kafka-cluster
+    strimzi.io/cluster: ${{values.kafkaClusterName}}
 spec:
   replicas: 1
   roles:
@@ -15,7 +15,7 @@ spec:
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
-  name: dadjokes-kafka-cluster
+  name: ${{values.kafkaClusterName}}
   annotations:
     strimzi.io/kraft: enabled
     strimzi.io/node-pools: enabled
@@ -50,7 +50,7 @@ kind: KafkaTopic
 metadata:
   name: dad-jokes
   labels:
-    strimzi.io/cluster: dadjokes-kafka-cluster
+    strimzi.io/cluster: ${{values.kafkaClusterName}}
 spec:
   partitions: 5
   replicas: 1
@@ -63,7 +63,7 @@ kind: KafkaTopic
 metadata:
   name: dad-jokes-result
   labels:
-    strimzi.io/cluster: dadjokes-kafka-cluster
+    strimzi.io/cluster: ${{values.kafkaClusterName}}
 spec:
   partitions: 1
   replicas: 1

@@ -1,0 +1,616 @@
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: olivia.johnson
+  description: Olivia Johnson
+spec:
+  profile:
+    displayName: Olivia Johnson
+  memberOf:
+  - product-catalog
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: jonas.schmitt
+  description: Jonas Schmitt
+spec:
+  profile:
+    displayName: Jonas Schmitt
+  memberOf:
+  - mobile
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: saanvi.agarwal
+  description: Saanvi Agarwal
+spec:
+  profile:
+    displayName: Saanvi Agarwal
+  memberOf:
+  - web
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: tim.braun
+  description: Tim Braun
+spec:
+  profile:
+    displayName: Tim Braun
+  memberOf:
+  - platform-engineering
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: leonie.klein
+  description: Leonie Klein
+spec:
+  profile:
+    displayName: Leonie Klein
+  memberOf:
+  - data-pipelines
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: vikram.menon
+  description: Vikram Menon
+spec:
+  profile:
+    displayName: Vikram Menon
+  memberOf:
+  - infrastructure-security
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: lea.moreau
+  description: Léa Moreau
+spec:
+  profile:
+    displayName: Léa Moreau
+  memberOf:
+  - application-security
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: sneha.choudhary
+  description: Sneha Choudhary
+spec:
+  profile:
+    displayName: Sneha Choudhary
+  memberOf:
+  - backend
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: noah.williams
+  description: Noah Williams
+spec:
+  profile:
+    displayName: Noah Williams
+  memberOf:
+  - frontend
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: paul.roche
+  description: Paul Roche
+spec:
+  profile:
+    displayName: Paul Roche
+  memberOf:
+  - security
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: victor.lefebvre
+  description: Victor Lefebvre
+spec:
+  profile:
+    displayName: Victor Lefebvre
+  memberOf:
+  - reliability-engineering
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: david.hoffmann
+  description: David Hoffmann
+spec:
+  profile:
+    displayName: David Hoffmann
+  memberOf:
+  - infrastructure
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: sai.iyer
+  description: Sai Iyer
+spec:
+  profile:
+    displayName: Sai Iyer
+  memberOf:
+  - data-engineering
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: aanya.mehta
+  description: Aanya Mehta
+spec:
+  profile:
+    displayName: Aanya Mehta
+  memberOf:
+  - data-pipelines
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: mia.lopez
+  description: Mia Lopez
+spec:
+  profile:
+    displayName: Mia Lopez
+  memberOf:
+  - frontend
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: james.martinez
+  description: James Martinez
+spec:
+  profile:
+    displayName: James Martinez
+  memberOf:
+  - machine-learning
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: diya.singh
+  description: Diya Singh
+spec:
+  profile:
+    displayName: Diya Singh
+  memberOf:
+  - analytics
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: marie.fischer
+  description: Marie Fischer
+spec:
+  profile:
+    displayName: Marie Fischer
+  memberOf:
+  - user-management
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: benjamin.gonzalez
+  description: Benjamin Gonzalez
+spec:
+  profile:
+    displayName: Benjamin Gonzalez
+  memberOf:
+  - data-pipelines
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: charlotte.wilson
+  description: Charlotte Wilson
+spec:
+  profile:
+    displayName: Charlotte Wilson
+  memberOf:
+  - web
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: reyansh.kapoor
+  description: Reyansh Kapoor
+spec:
+  profile:
+    displayName: Reyansh Kapoor
+  memberOf:
+  - security
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: jade.bernard
+  description: Jade Bernard
+spec:
+  profile:
+    displayName: Jade Bernard
+  memberOf:
+  - frontend
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: lucas.leroy
+  description: Lucas Leroy
+spec:
+  profile:
+    displayName: Lucas Leroy
+  memberOf:
+  - product-catalog
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: juliette.michel
+  description: Juliette Michel
+spec:
+  profile:
+    displayName: Juliette Michel
+  memberOf:
+  - developer-experience
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: krishna.yadav
+  description: Krishna Yadav
+spec:
+  profile:
+    displayName: Krishna Yadav
+  memberOf:
+  - platform-engineering
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: emma.jones
+  description: Emma Jones
+spec:
+  profile:
+    displayName: Emma Jones
+  memberOf:
+  - frontend
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: kavya.nair
+  description: Kavya Nair
+spec:
+  profile:
+    displayName: Kavya Nair
+  memberOf:
+  - application-security
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: alexander.jackson
+  description: Alexander Jackson
+spec:
+  profile:
+    displayName: Alexander Jackson
+  memberOf:
+  - analytics
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: william.hernandez
+  description: William Hernandez
+spec:
+  profile:
+    displayName: William Hernandez
+  memberOf:
+  - user-management
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: ethan.fournier
+  description: Ethan Fournier
+spec:
+  profile:
+    displayName: Ethan Fournier
+  memberOf:
+  - payments
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: rohan.verma
+  description: Rohan Verma
+spec:
+  profile:
+    displayName: Rohan Verma
+  memberOf:
+  - payments
+---
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: anna.zimmermann
+  description: Anna Zimmermann
+spec:
+  profile:
+    displayName: Anna Zimmermann
+  memberOf:
+  - data-engineering
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: isabella.rodriguez
+  description: Isabella Rodriguez
+spec:
+  profile:
+    displayName: Isabella Rodriguez
+  memberOf:
+  - machine-learning
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: karan.bhatia
+  description: Karan Bhatia
+spec:
+  profile:
+    displayName: Karan Bhatia
+  memberOf:
+  - frontend
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: clara.andre
+  description: Clara André
+spec:
+  profile:
+    displayName: Clara André
+  memberOf:
+  - data-pipelines
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: leon.meyer
+  description: Leon Meyer
+spec:
+  profile:
+    displayName: Leon Meyer
+  memberOf:
+  - infrastructure
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: vivaan.patel
+  description: Vivaan Patel
+spec:
+  profile:
+    displayName: Vivaan Patel
+  memberOf:
+  - product-catalog
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: chloe.thomas
+  description: Chloé Thomas
+spec:
+  profile:
+    displayName: Chloé Thomas
+  memberOf:
+  - backend
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: henry.taylor
+  description: Henry Taylor
+spec:
+  profile:
+    displayName: Henry Taylor
+  memberOf:
+  - security
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: kavya.iyer
+  description: Kavya Iyer
+spec:
+  profile:
+    displayName: Kavya Iyer
+  memberOf:
+  - application-security
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: sophie.koch
+  description: Sophie Koch
+spec:
+  profile:
+    displayName: Sophie Koch
+  memberOf:
+  - analytics
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: ishika.sharma
+  description: Ishika Sharma
+spec:
+  profile:
+    displayName: Ishika Sharma
+  memberOf:
+  - data-engineering
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: rohit.kumar
+  description: Rohit Kumar
+spec:
+  profile:
+    displayName: Rohit Kumar
+  memberOf:
+  - infrastructure
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: lucas.anderson
+  description: Lucas Anderson
+spec:
+  profile:
+    displayName: Lucas Anderson
+  memberOf:
+  - frontend
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: julie.dubois
+  description: Julie Dubois
+spec:
+  profile:
+    displayName: Julie Dubois
+  memberOf:
+  - platform-engineering
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: ethan.martin
+  description: Ethan Martin
+spec:
+  profile:
+    displayName: Ethan Martin
+  memberOf:
+  - web
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: meera.jain
+  description: Meera Jain
+spec:
+  profile:
+    displayName: Meera Jain
+  memberOf:
+  - mobile
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: victor.muller
+  description: Victor Muller
+spec:
+  profile:
+    displayName: Victor Muller
+  memberOf:
+  - developer-experience
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: alice.leroy
+  description: Alice Leroy
+spec:
+  profile:
+    displayName: Alice Leroy
+  memberOf:
+  - security
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: arya.reddy
+  description: Arya Reddy
+spec:
+  profile:
+    displayName: Arya Reddy
+  memberOf:
+  - application-security
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: clara.schroder
+  description: Clara Schröder
+spec:
+  profile:
+    displayName: Clara Schröder
+  memberOf:
+  - data-pipelines
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: emma.schmidt
+  description: Emma Schmidt
+spec:
+  profile:
+    displayName: Emma Schmidt
+  memberOf:
+  - product-catalog
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: rahul.patel
+  description: Rahul Patel
+spec:
+  profile:
+    displayName: Rahul Patel
+  memberOf:
+  - payments
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: juliette.marchand
+  description: Juliette Marchand
+spec:
+  profile:
+    displayName: Juliette Marchand
+  memberOf:
+  - machine-learning
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: priya.shah
+  description: Priya Shah
+spec:
+  profile:
+    displayName: Priya Shah
+  memberOf:
+  - developer-experience
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: matthew.davis
+  description: Matthew Davis
+spec:
+  profile:
+    displayName: Matthew Davis
+  memberOf:
+  - reliability-engineering

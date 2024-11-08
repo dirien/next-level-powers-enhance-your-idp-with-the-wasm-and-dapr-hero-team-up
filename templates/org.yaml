@@ -1,0 +1,239 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: platform-engineering
+  description: The Platform Engineering team responsible for building and maintaining the developer platform and infrastructure tooling.
+spec:
+  type: team
+  profile:
+    displayName: Platform Engineering
+  children:
+  - infrastructure
+  - developer-experience
+  - reliability-engineering
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: infrastructure
+  description: The Infrastructure team managing cloud resources and underlying infrastructure.
+spec:
+  type: team
+  profile:
+    displayName: Infrastructure
+  parent: platform-engineering
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: developer-experience
+  description: The Developer Experience team enhancing internal tools and workflows.
+spec:
+  type: team
+  profile:
+    displayName: Developer Experience
+  parent: platform-engineering
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: reliability-engineering
+  description: The Reliability Engineering team ensuring system reliability and performance.
+spec:
+  type: team
+  profile:
+    displayName: Reliability Engineering
+  parent: platform-engineering
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: frontend
+  description: The Frontend Development team responsible for customer-facing web and mobile applications.
+spec:
+  type: team
+  profile:
+    displayName: Frontend
+  children:
+  - web
+  - mobile
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: web
+  description: The Web Development team focusing on the e-commerce website.
+spec:
+  type: team
+  profile:
+    displayName: Web Development
+  parent: frontend
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: mobile
+  description: The Mobile Development team focusing on the e-commerce mobile applications.
+spec:
+  type: team
+  profile:
+    displayName: Mobile Development
+  parent: frontend
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: backend
+  description: The Backend Development team responsible for APIs, services, and business logic.
+spec:
+  type: team
+  profile:
+    displayName: Backend
+  children:
+  - payments
+  - product-catalog
+  - user-management
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: payments
+  description: The Payments team managing payment processing and integrations.
+spec:
+  type: team
+  profile:
+    displayName: Payments
+  parent: backend
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: product-catalog
+  description: The Product Catalog team managing product listings and inventory.
+spec:
+  type: team
+  profile:
+    displayName: Product Catalog
+  parent: backend
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: user-management
+  description: The User Management team handling user accounts and authentication.
+spec:
+  type: team
+  profile:
+    displayName: User Management
+  parent: backend
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: security
+  description: The Security team ensuring application and infrastructure security.
+spec:
+  type: team
+  profile:
+    displayName: Security
+  children:
+  - application-security
+  - infrastructure-security
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: application-security
+  description: The Application Security team focusing on securing the software applications.
+spec:
+  type: team
+  profile:
+    displayName: Application Security
+  parent: security
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: infrastructure-security
+  description: The Infrastructure Security team focusing on securing the infrastructure and cloud resources.
+spec:
+  type: team
+  profile:
+    displayName: Infrastructure Security
+  parent: security
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: data-engineering
+  description: The Data Engineering team responsible for data pipelines, analytics, and recommendations.
+spec:
+  type: team
+  profile:
+    displayName: Data Engineering
+  children:
+  - data-pipelines
+  - analytics
+  - machine-learning
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: data-pipelines
+  description: The Data Pipelines team managing data ingestion and processing.
+spec:
+  type: team
+  profile:
+    displayName: Data Pipelines
+  parent: data-engineering
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: analytics
+  description: The Analytics team providing insights and business intelligence.
+spec:
+  type: team
+  profile:
+    displayName: Analytics
+  parent: data-engineering
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: machine-learning
+  description: The Machine Learning team developing recommendation systems and predictive models.
+spec:
+  type: team
+  profile:
+    displayName: Machine Learning
+  parent: data-engineering
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: organization
+  description: The entire organization containing all departments.
+spec:
+  type: organization
+  profile:
+    displayName: Organization
+  children:
+  - platform-engineering
+  - frontend
+  - backend
+  - security
+  - data-engineering

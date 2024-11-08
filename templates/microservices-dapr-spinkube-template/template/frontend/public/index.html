@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom gradient background with Pulumi colors */
+        .pulumi-gradient {
+            background: linear-gradient(90deg, #f7bf2a, #f26e7e, #bd4c85, #8a3391, #805ac3, #4d5bd9);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+<!-- Banner Header with Pulumi Brand Colors -->
+<header class="pulumi-gradient grid grid-cols-3 items-center gap-4 px-8 py-6">
+
+    <!-- Left Side: Pulumi Brand Logo -->
+    <div class="flex justify-start">
+        <img
+                src="https://www.pulumi.com/logos/brand/avatar-on-white.png"
+                alt="Pulumi logo"
+                class="w-[120px] h-[120px] object-contain"
+        >
+    </div>
+
+    <!-- Center Section: Main Content, aligned left -->
+    <div class="col-span-2 flex flex-col items-start">
+        <!-- Inner div to center h1 and image relative to each other -->
+        <div class="flex flex-col items-center space-y-2">
+            <h1 class="text-5xl sm:text-6xl font-bold text-white">Dad Joke Image Gallery</h1>
+            <!-- WasmCon logo -->
+            <img
+                    decoding="async"
+                    src="https://events.linuxfoundation.org/wp-content/uploads/2023/07/WasmCon-Logo-TaglineMashup_white_v2.svg"
+                    alt="WasmCon logo with the tagline 'Better Together'"
+                    class="w-[150px] sm:w-[200px] md:w-[250px] lg:w-[300px] object-contain"
+            >
+        </div>
+    </div>
+</header>
+
+
+<div class="container mx-auto py-10">
+    <div id="imageContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Placeholder Card -->
+        <div id="placeholderCard" class="bg-white rounded-lg shadow-md p-4 text-center">
+            <img src="qr.png"
+                 alt="Placeholder Image"
+                 class="w-full h-auto rounded-lg shadow-lg mb-4">
+            <p class="text-sm text-gray-700">Scan QR code to generate Dad Jokes or <br>  <br> <b>http://dadjoke-api-wasmcon.ediri.online/new</b></p>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    let socket;
+
+    // Function to create and manage the WebSocket connection
+    function createWebSocketConnection() {
+        socket = new WebSocket(`ws://${window.location.host}`);
+
+        // Handle WebSocket messages
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            const { joke, image_url } = data;
+
+            // Only proceed if image_url is present
+            if (!image_url) {
+                console.log("Received joke without an image URL, keeping placeholder.");
+                return;
+            }
+
+            // Create a new card for each image and joke
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-lg shadow-md p-4 text-center';
+
+            // Create the image element
+            const img = document.createElement('img');
+            img.src = image_url;
+            img.alt = 'Generated Image';
+            img.className = 'w-full h-auto rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 mb-4';
+
+            // Create a caption element for the joke
+            const caption = document.createElement('p');
+            caption.innerText = joke;
+            caption.className = 'text-sm text-gray-700';
+
+            // Append the image and caption to the card
+            card.appendChild(img);
+            card.appendChild(caption);
+
+            // Append the card to the grid container without removing the placeholder
+            const imageContainer = document.getElementById('imageContainer');
+            imageContainer.appendChild(card);
+        };
+
+        // Log WebSocket connection open status
+        socket.onopen = () => console.log('WebSocket connection opened');
+
+        // Handle WebSocket closure and attempt reconnection
+        socket.onclose = (event) => {
+            console.log('WebSocket connection closed. Attempting to reconnect...', event);
+            setTimeout(createWebSocketConnection, 3000); // Reconnect after 3 seconds
+        };
+
+        // Handle WebSocket errors and close the connection to trigger reconnection
+        socket.onerror = (error) => {
+            console.log('WebSocket encountered error:', error);
+            socket.close(); // Close the connection to trigger the `onclose` event
+        };
+    }
+
+    // Start the WebSocket connection initially
+    createWebSocketConnection();
+</script>
+</body>
+</html>

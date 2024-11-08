@@ -1,0 +1,118 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: microservices-dapr-spinkube-template
+  title: Microservices with Dapr and SpinKube
+  description: |
+    This template creates a new microservices:
+    
+    - Spinkube for WASM api
+    - Go for the backend
+    - JavaScript for the frontend
+    
+    Additional components:
+    
+    - Kafka for the pubsub
+    - Dapr components for the pubsub between the services
+    - KEDA ScaledObject for the backend service
+spec:
+  owner: platform-engineering
+  type: golden-path
+  parameters:
+  - title: Provide project information
+    required:
+    - name
+    - owner
+    properties:
+      name:
+        title: Name
+        type: string
+        description: Unique name of the component.
+        ui:field: EntityNamePicker
+      description:
+        title: Description
+        type: string
+        description: Tell us more about this component.
+      owner:
+        title: Owner
+        type: string
+        description: Owner of the component
+        ui:field: OwnerPicker
+        ui:options:
+          allowedKinds:
+          - Group
+  - title: Provide technical information
+    required:
+    - namespace
+    properties:
+      kafkaClusterName:
+        title: Kafka Cluster Name
+        type: string
+        description: Name of the Kafka cluster
+        default: my-kafka-cluster
+      deployKafkaUI:
+        title: Deploy Kafka UI
+        type: boolean
+        description: Deploy Kafka UI
+        default: true
+      namespace:
+        title: Namespace
+        type: string
+        description: Namespace for the component
+      maxBackedReplicaCount:
+        title: Max Backed Replica Count
+        type: integer
+        description: Maximum number of replicas for the backend service ScaledObject
+        default: 5
+  - title: Choose a location
+    required:
+    - repoUrl
+    properties:
+      repoUrl:
+        title: Repository Location
+        type: string
+        ui:field: RepoUrlPicker
+        ui:options:
+          allowedHosts:
+          - github.com
+  steps:
+  - id: template
+    name: Create Project
+    action: fetch:template
+    input:
+      url: ./template
+      values:
+        name: ${{ parameters.name }}
+        description: ${{ parameters.description }}
+        destination: ${{ parameters.repoUrl | parseRepoUrl }}
+        owner: ${{ parameters.owner }}
+        kafkaClusterName: ${{ parameters.kafkaClusterName }}
+        deployKafkaUI: ${{ parameters.deployKafkaUI }}
+        namespace: ${{ parameters.namespace }}
+        maxBackedReplicaCount: ${{ parameters.maxBackedReplicaCount }}
+
+  - id: publish
+    name: Publish to GitHub
+    action: publish:github
+    input:
+      allowedHosts: ["github.com"]
+      repoVisibility: public
+      description: "This is ${{ parameters.component_id }}"
+      repoUrl: ${{ parameters.repoUrl }}
+      defaultBranch: main
+      requiredApprovingReviewCount: 0
+      protectDefaultBranch: false
+
+  - id: register
+    name: Registering the Catalog Info Component
+    action: catalog:register
+    input:
+      repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+      catalogInfoPath: '/catalog-info.yaml'
+  output:
+    links:
+    - title: Open the Source Code Repository
+      url: ${{ steps['publish'].output.repoContentsUrl }}
+    - title: Open the Catalog Info Component
+      icon: catalog
+      entityRef: ${{ steps['register'].output.entityRef }}

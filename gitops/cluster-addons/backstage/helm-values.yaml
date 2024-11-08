@@ -16,7 +16,7 @@ backstage:
       - name: BASE_URL
         value: backstage-wasmcon.ediri.online
       - name: CATALOG_LOCATION
-        value: "https://github.com/dirien/backstage-demo/blob/main/catalog/catalog-all.yaml"
+        value: "https://github.com/dirien/next-level-powers-enhance-your-idp-with-the-wasm-and-dapr-hero-team-up/blob/main/templates/catalog-all.yaml"
       - name: POSTGRES_HOST
         value: "backstage-app-cluster-rw"
       - name: POSTGRES_PORT

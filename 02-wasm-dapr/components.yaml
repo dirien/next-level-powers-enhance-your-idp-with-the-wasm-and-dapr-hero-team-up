@@ -1,0 +1,31 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: dadjokes
+  description: |
+    Spinkube and Dapr based application to serve dad jokes to users.
+  annotations:
+    argocd/app-name: dadjokes
+    backstage.io/kubernetes-id: dadjokes
+  tags:
+    - spinkube
+    - dapr
+    - wasm
+  links:
+    - url: http://dadjoke-wasmcon.ediri.online/
+      title: Dad Joke Image Gallery
+      icon: link
+      type: website
+    - url: http://dadjoke-api-wasmcon.ediri.online
+      title: Generate a new Dad Joke
+      icon: dashboard
+      type: website
+    - url: http://dadjoke-kafka-ui-wasmcon.ediri.online/
+      title: Kafka UI
+      icon: dashboard
+      type: kafka-dashboard
+spec:
+  owner: web
+  type: service
+  lifecycle: production
+---

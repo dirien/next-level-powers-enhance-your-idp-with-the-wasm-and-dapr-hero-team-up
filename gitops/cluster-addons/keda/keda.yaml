@@ -10,7 +10,7 @@ spec:
   project: infra
   source:
     repoURL: https://kedacore.github.io/charts
-    targetRevision: 2.15.2
+    targetRevision: 2.16.0
     chart: keda
   syncPolicy:
     automated:

@@ -7,6 +7,7 @@ configs:
   cm:
     application.resourceTrackingMethod: annotation
     accounts.admin: "apiKey, login"
+    kustomize.buildOptions: "--enable-helm"
 
   repositories:
     pulumi-oci:

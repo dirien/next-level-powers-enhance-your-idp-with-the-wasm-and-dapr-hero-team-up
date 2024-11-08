@@ -5,22 +5,23 @@ resources:
 - base/kafka.yaml
 - base/dapr.yaml
 - base/frontend.yaml
-- base/dadjoke-api.yaml
-- base/dadjoke-backend.yaml
+- base/api.yaml
+- base/backend.yaml
 - base/spin.yaml
 
-namespace: dadjokes
+namespace: ${{values.namespace}}
 
 configurations:
 - config/spinapp-transformer.yaml
 
 commonLabels:
-  "backstage.io/kubernetes-id": dadjokes
+  "backstage.io/kubernetes-id": ${{values.name}}
 
 labels:
 - pairs:
-    "backstage.io/kubernetes-id": dadjokes
+    "backstage.io/kubernetes-id": ${{values.name}}
 
+{%- if values.deployKafkaUI %}
 helmCharts:
 - name: kafka-ui
   valuesInline:
@@ -33,13 +34,14 @@ helmCharts:
       host: dadjoke-kafka-ui-wasmcon.ediri.online
     envs:
       config:
-        KAFKA_CLUSTERS_0_NAME: dadjokes-kafka-cluster
-        KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: dadjokes-kafka-cluster-kafka-bootstrap:9092
+        KAFKA_CLUSTERS_0_NAME: ${{values.kafkaClusterName}}
+        KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: ${{values.kafkaClusterName}}-kafka-bootstrap:9092
     yamlApplicationConfig:
       auth:
         type: disabled
   version: 0.7.6
   repo: https://provectus.github.io/kafka-ui-charts
+{%- endif %}
 
 images:
 - name: frontend
@@ -61,4 +63,4 @@ patchesJson6902:
   patch: |-
     - op: replace
       path: /spec/triggers/0/metadata/bootstrapServers
-      value: dadjokes-kafka-cluster-kafka-bootstrap.dadjokes.svc.cluster.local:9092
+      value: ${{values.kafkaClusterName}}-kafka-bootstrap.${{values.namespace}}.svc.cluster.local:9092

@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: wasmcon-demo
+  description: A collection of all Backstage entities for the WasmCon demo
+spec:
+  targets:
+  - ./org.yaml
+  - ./user.yaml
+  - ../02-wasm-dapr/components.yaml
+  - ./microservices-dapr-spinkube-template/template.yaml

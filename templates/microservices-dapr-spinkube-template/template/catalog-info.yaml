@@ -1,0 +1,33 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{values.name}}
+  {%- if values.description %}
+  description: |
+    ${{values.description | dump}}
+  {%- endif %}
+  annotations:
+    argocd/app-name: ${{values.name}}
+    backstage.io/kubernetes-id: ${{values.name}}
+  tags:
+    - spinkube
+    - dapr
+    - wasm
+  links:
+    - url: http://dadjoke-wasmcon.ediri.online/
+      title: Dad Joke Image Gallery
+      icon: link
+      type: website
+    - url: http://dadjoke-api-wasmcon.ediri.online
+      title: Generate a new Dad Joke
+      icon: dashboard
+      type: website
+    - url: http://dadjoke-kafka-ui-wasmcon.ediri.online/
+      title: Kafka UI
+      icon: dashboard
+      type: kafka-dashboard
+spec:
+  owner: ${{values.owner | dump}}
+  type: service
+  lifecycle: production
+---
