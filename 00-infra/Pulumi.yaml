@@ -1,0 +1,40 @@
+name: do-cluster
+runtime: yaml
+description: The DO Cluster for the demo
+
+outputs:
+  clusterName: ${cluster.name}
+  kubeconfig: "${cluster.kubeConfigs[0].rawConfig}"
+
+variables:
+  clusterRegion: fra1
+  nodeCount: 1
+  version: 1.31.1-do.3
+
+resources:
+  cluster:
+    type: digitalocean:KubernetesCluster
+    properties:
+      region: ${clusterRegion}
+      version: ${version}
+      destroyAllAssociatedResources: true
+      nodePool:
+        name: default
+        size: g-4vcpu-16gb
+        nodeCount: ${nodeCount}
+
+  k8s_provider:
+    type: pulumi:providers:kubernetes
+    properties:
+      enableServerSideApply: true
+      kubeconfig: "${cluster.kubeConfigs[0].rawConfig}"
+
+  pat:
+    type: kubernetes:core/v1:Secret
+    properties:
+      metadata:
+        name: "pulumi-access-token"
+      stringData:
+        PULUMI_ACCESS_TOKEN: ${pulumi-pat}
+    options:
+      provider: ${k8s_provider}

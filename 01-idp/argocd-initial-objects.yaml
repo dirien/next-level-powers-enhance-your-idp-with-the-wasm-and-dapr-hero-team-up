@@ -1,0 +1,119 @@
+applicationsets:
+  app-of-apps:
+    namespace: argocd
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    project: infra
+    goTemplate: true
+    goTemplateOptions: ["missingkey=error"]
+    generators:
+    - git:
+        repoURL: https://github.com/dirien/next-level-powers-enhance-your-idp-with-the-wasm-and-dapr-hero-team-up.git
+        revision: HEAD
+        branch: main
+        directories:
+        - path: gitops/cluster-addons/*
+    template:
+      metadata:
+        name: '{{.path.basename}}'
+      spec:
+        project: infra
+        source:
+          repoURL: https://github.com/dirien/next-level-powers-enhance-your-idp-with-the-wasm-and-dapr-hero-team-up.git
+          targetRevision: HEAD
+          path: '{{.path.path}}'
+        destination:
+          server: https://kubernetes.default.svc
+          namespace: '{{.path.basename}}'
+        syncPolicy:
+          automated:
+            prune: true
+            selfHeal: true
+          syncOptions:
+          - CreateNamespace=true
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+
+  apps:
+    namespace: argocd
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    project: apps
+    goTemplate: true
+    goTemplateOptions: ["missingkey=error"]
+    generators:
+    - git:
+        repoURL: https://github.com/dirien/next-level-powers-enhance-your-idp-with-the-wasm-and-dapr-hero-team-up.git
+        revision: HEAD
+        branch: main
+        directories:
+        - path: gitops/apps/*
+    template:
+      metadata:
+        name: '{{.path.basename}}'
+      spec:
+        project: apps
+        source:
+          repoURL: https://github.com/dirien/next-level-powers-enhance-your-idp-with-the-wasm-and-dapr-hero-team-up.git
+          targetRevision: HEAD
+          path: '{{.path.path}}'
+        destination:
+          server: https://kubernetes.default.svc
+          namespace: '{{.path.basename}}'
+        syncPolicy:
+          automated:
+            prune: true
+            selfHeal: true
+          syncOptions:
+          - CreateNamespace=true
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+
+projects:
+  infra:
+    namespace: argocd
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    description: Infrastructure components on management cluster
+    sourceRepos:
+    - '*'
+    destinations:
+    - namespace: "*"
+      server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+    sourceNamespaces:
+    - '*'
+
+  apps:
+    namespace: argocd
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    description: Applications on management cluster
+    sourceRepos:
+    - '*'
+    destinations:
+    - namespace: "*"
+      server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+    sourceNamespaces:
+    - '*'
