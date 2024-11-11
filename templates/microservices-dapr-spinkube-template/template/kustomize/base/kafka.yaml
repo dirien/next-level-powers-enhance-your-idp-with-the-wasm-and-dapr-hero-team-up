@@ -1,7 +1,7 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaNodePool
 metadata:
-  name: dadjokes-kafka-node-pool
+  name: ${{values.name}}-kafka-node-pool
   labels:
     strimzi.io/cluster: ${{values.kafkaClusterName}}
 spec:
